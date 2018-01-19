@@ -1,0 +1,207 @@
+<div class="blog-post">
+<h2 class="blog-post-title"><small>This page has links to my work and notes.</small></h2>
+<p class="blog-post-meta">Sept 25, 2015 by <a href="../resume/">Vikas Kaushik</a></p>
+
+<!----------------------------------------------------------  -->
+<ul>
+	<li>Website: <a href="http://www.narendraplast.com/">narendraplast.com</a></li>
+	<li><a href="http://narendraplast.com/searchapp/">An autocomplete search bar with filters on search results.</a></li>
+	<li><a href="http://www.narendraplast.com/demo/autocomplete/">Another autocomplete</a></li>
+	<li><a href="http://narendraplast.com/app/">Webapp using geolocation</a>: Gets your current location and shows list of hospital sorted by distance. (Using google geolocation services)</li>
+	<li><a href="http://www.narendraplast.com/infypoc/">Task:</a> to copy selected images to another folder.</li>
+	<li><a href="http://u6140134.nettech.firm.in/">Another dummy work.</a></li>
+</ul>
+
+<hr>
+<p>Following is a php script to make a connection to mysql server and run queries using php.</p>
+<pre><code>
+$con = mysqli_connect('hostname','username','password','dbname');
+$hospitals = "hospitals";
+if($con)
+	; //echo "Connected !!";
+else
+	die("Not Connected !!");
+</pre></code>
+<hr>
+<p>Following is a php script that loads data from a csv file to server database after reprocessing content. Sample csv file: <a href="http://narendraplast.com/searchapp/hilfeytech_demo_data2.csv">file</a></p>
+<pre><code>
+$myfile = fopen("hilfeytech_demo_data1.csv", "r") or die("Unable to open file!");
+
+// Read csv data file in an array line by line
+$csv_lines = array();
+// Process first line
+$csv_lines[0] = fgets($myfile);
+$columns = explode(',',$csv_lines[$i]);
+$fields = array($columns[0], $columns[1], $columns[2], $columns[3], $columns[4], $columns[5], $columns[6], $columns[7], $columns[8], $columns[9]);
+// Process rest of lines
+$i = 1;
+while(($line = fgets($myfile)) != false){
+	$csv_lines[$i] = $line;
+	//echo $i."- ".$csv_lines[$i];
+	$columns = explode(',',$csv_lines[$i]);
+	$fields[$i] = array($columns[0], $columns[1], $columns[2], $columns[3], $columns[4], $columns[5], $columns[6], $columns[7], $columns[8], $columns[9]);
+	++$i;
+}
+
+// Close csv file.
+fclose($myfile);	
+
+// Now we have an field array ready. We will process field columns and store in our database.
+require_once "make_connection.php";
+if (mysqli_connect_errno()){
+	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+$row_count = count($fields);
+for($row = 1; $row &lt; $row_count; ++$row){
+	// Direct values
+	// sr	name	contact	address	city	fees	is_24x7_open	is_instant_booking	speciality	tests
+	$sr = $fields[$row][0];
+	$name = $fields[$row][1];
+	$contact = $fields[$row][2];
+	$address = $fields[$row][3];
+	$city = $fields[$row][4];
+	$fees = $fields[$row][5];
+	$is_24x7_open = $fields[$row][6];
+	$is_instant_booking = $fields[$row][7];
+	$speciality = $fields[$row][8];
+	$tests = $fields[$row][9];
+	// make query string
+	$query_str = "INSERT INTO `search_table`(`sr`, `name`, `contact`, `address`, `city`, `speciality`, `tests`, `fees`, `is_24x7_open`, `is_instant_booking`) VALUES ('$sr','$name','$contact','$address','$city','$speciality','$tests','$fees','$is_24x7_open','$is_instant_booking')";
+	
+	// execute query
+	echo "$row -- $query_str";
+	mysqli_query($con,$query_str);
+}
+
+// close db connection
+mysqli_close($con);}
+</pre></code>
+
+<p>Following php script is to load data from csv file to mysql database.</p>
+<pre><code>
+// Open csv file for reading.
+$myfile = fopen("hospitals_data_2.csv", "r") or die("Unable to open file!");
+
+// Read csv data file in an array line by line
+$csv_lines = array();
+// Process first line
+$csv_lines[0] = fgets($myfile);
+$columns = explode(',',$csv_lines[$i]);
+$fields = array($columns[0], $columns[1], $columns[2], $columns[3], $columns[4]);
+// Process rest of lines
+$i = 1;
+while(($line = fgets($myfile)) != false){
+	$csv_lines[$i] = $line;
+	//echo $i."- ".$csv_lines[$i]."&lt;/br&gt;";
+	$columns = explode(',',$csv_lines[$i]);
+	$fields[$i] = array($columns[0], $columns[1], $columns[2], $columns[3], $columns[4]);
+	++$i;
+}
+
+// Close csv file.
+fclose($myfile);	
+
+// Now we have an field array ready. We will process field columns and store in our database.
+require_once "make_connection.php";
+if (mysqli_connect_errno()){
+	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+$row_count = count($fields);
+for($row = 1; $row &lt; $row_count; ++$row){
+	usleep(250000);
+	// Direct values
+	$name = $fields[$row][0];
+	$contact_numbers = $fields[$row][1];
+	$address = $fields[$row][2];
+	$avail_24x7 = $fields[$row][3];
+	$medical_tests = $fields[$row][4];
+	// Modified values
+	$city = getAddressCity($address);
+	$latlng = getLatLng($address);	
+	$latitude = $latlng[0];
+	$longitude = $latlng[1];
+	$place_id = getPlaceId($latlng);
+	// make query string
+	$query_str = "INSERT INTO `hospitals`(`name`, `contact_numbers`, `address`, `city`, `longitude`, `latitude`, `place_id`, `avail_24x7`, `medical_tests`) VALUES ('$name','$contact_numbers','$address','$city','$longitude','$latitude','$place_id',$avail_24x7,'$medical_tests')";
+	// execute query
+	echo "&lt;br&gt;$row -- $query_str&lt;hr&gt;";
+	//mysqli_query($con,$query_str);
+}
+
+// close db connection
+mysqli_close($con);
+
+// Looks for the city name in the address and sets the city name found in address.
+// It is hard coded and need to be modified for a more generalized fucntion.
+function getAddressCity($address){
+	$city = "Delhi";
+	if(preg_match("/[Bb]angalore/",$address)){ // example pattern : ("/^[a-zA-Z ]*$/",$str)
+		$city = "Bangalore";
+	}
+	return $city;
+}
+
+function getLatLng($address){
+	$latlng = array(0,0);
+	$url_google = "https://maps.googleapis.com/maps/api/geocode/xml?address=$address&key=AIzaSyAUwaGqHBQbQtrwuBD-s5ri3udYhqqXgNk";
+
+	//Clean up multiple whitespaces
+	$url_google = preg_replace("/[\s]+/", " ", $url_google);
+	//Convert whitespaces to %20
+	$url_google = preg_replace("/[\s]/", "%20", $url_google);
+	
+	// Get url content.
+	$payload = file_get_contents($url_google);
+	
+	// Parse xml returned from google geocode api
+	$xml_geocode = simplexml_load_string($payload) or die("Error: Cannot create object");
+	echo "&lt;br&gt;$xml_geocode&lt;br&gt;;
+	$latlng[0] = $xml_geocode-&gt;result-&gt;geometry-&gt;location-&gt;lat;
+	$latlng[1] = $xml_geocode-&gt;result-&gt;geometry-&gt;location-&gt;lng;
+	return $latlng;
+}
+
+function getPlaceId($latlng){
+	$pladeid = "ChIJrTLr-GyuEmsRBfy61i59si0";
+	return $pladeid;
+}
+
+function printFields($fields){
+	for ($row = 0; $row &lt; 8; $row++) {
+		echo "&lt;p&gt;&lt;b&gt;Row number $row&lt;/b&gt;&lt;/p&gt;";
+		echo "&lt;ul&gt;";
+		for ($col = 0; $col &lt; 5; $col++) {
+			echo "&lt;li&gt;".$fields[$row][$col]."&lt;/li&gt;";
+		}
+	echo "&lt;/ul&gt;";
+	}
+}
+</pre></code>
+
+
+<p>Following is a php script to copy selected files to another place, preserving the folder structure.</p>
+<pre><code>
+// Following script copies the checkbox files to temp folder
+
+if(isset($_POST['cblist'])) {
+	$selected = $_POST['cblist'];
+	foreach($selected as $image) {
+		echo "$image";
+		$destination = "temp/$image";
+		$path = pathinfo($destination);		
+		echo $path['dirname']; // echo $path['filename'];
+		$filename = basename($destination);
+		echo $filename;
+		
+		if (!mkdir($path['dirname'], 0777, true)) {
+			echo " folders in path for $image already exists.";
+		}
+		if (!copy($image,$destination)) {
+			echo "failed to copy $image";
+		}
+	}
+	echo "<br>";
+}
+header('Location: ./');
+</pre></code>
+</div><!-- /.blog-post -->
