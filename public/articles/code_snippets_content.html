@@ -1,0 +1,115 @@
+<html>
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<title></title>
+</head>
+<body>
+<div class="blog-post">
+<h2 class="blog-post-title">Sample blog post</h2>
+
+<p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+
+<p>This blog post shows a few different types of content that&#39;s supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
+
+<pre>
+<code>
+/* problem 33 karumanchi 
+   print bt from preorder when leaf and internal nodes are known and there will be eihter 0 or 2 children
+*/
+
+#include <iostream>
+
+using namespace std;
+
+void Fn(int max, int *a, int &b, int c);
+
+int main(void) {
+  int *a,b,c,max=5;
+  a = &b;
+  b = c = 0;
+
+  cout << *a << " " << b << " " << c << " in main" << endl;
+
+  Fn(max, a, b, c);
+
+  cout << *a << " " << b << " " << c <<  " in main" << endl;
+
+  return 0;
+}
+
+
+// Study and try to run following Fn. Also observe the values of parameters from where you have called Fn.
+// Fn is a recursive function.
+// Fn takes three arguments - a using pointer, b as reference and c as value.
+// Fn prints these arguments and simply returns when all of them become max.
+
+void Fn(int max, int *a, int &b, int c) {
+  if(*a <= max || b <= max || c <= max) { // base case i.e. increment a,b,c till max
+    cout << *a << " " << b << " " << c << " before recursive call" << endl;
+    ++(*a); ++b; ++c; // incrementing all three parameters
+    Fn(max, a, b, c); // recursive function call
+    cout << *a << " " << b << " " << c << " after recursive call" << endl; // uncomment to see 
+  }
+}
+
+
+</code></pre>
+
+<hr />
+
+<p><iframe align="middle" frameborder="0" name="resume_vikas_kaushik" scrolling="yes" src="http://www.kaushikvikas.com/resume/vikas_kaushik.pdf" title="Mr." width="100%" height="100%"></iframe></p>
+
+
+<p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+
+<blockquote>
+<p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+</blockquote>
+
+<p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+
+<p></p>
+
+<p></p>
+
+<h2>Heading</h2>
+
+<p>Sub-heading</p>
+
+<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+
+<ul>
+	<li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
+	<li>Donec id elit non mi porta gravida at eget metus.</li>
+	<li>Nulla vitae elit libero, a pharetra augue.</li>
+</ul>
+
+<p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
+
+<ol>
+	<li>Vestibulum id ligula porta felis euismod semper.</li>
+	<li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
+	<li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
+</ol>
+
+<p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
+</div>
+<!-- /.blog-post -->
+
+<div class="blog-post">
+<h2 class="blog-post-title">Another blog post</h2>
+
+<p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
+
+<p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+
+<blockquote>
+<p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+</blockquote>
+
+<p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+
+<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+</div>
+<!-- /.blog-post --></body>
+</html>
