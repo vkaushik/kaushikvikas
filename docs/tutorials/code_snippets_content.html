@@ -1,0 +1,68 @@
+<div class="blog-post">
+<h2 class="blog-post-title">C++ code snippets explained for quick learning</h2>
+<p class="blog-post-meta">July 12, 2015 by <a href="../resume/">Vikas Kaushik</a></p>
+
+<p>Following code snippets help in quick leraning by C++ STL practice examples, language conepts etc. All snippets are self explanatory, help yourself by implementing and compiling. Several special things here reader will learn himself while implementing, I avoid writing too much details which are of common-sense.</p>
+
+<!-------------------------------------------------------------------------------->
+<hr>
+<h3>Parameter passing - using pointer, reference and value</h3>
+<p> Study and try to run following Fn. Also observe the values of parameters from where you have called Fn.
+<ul>
+<li>Fn is a recursive function.</li>
+<li>Fn takes three arguments - a using pointer, b as reference and c as value.</li>
+<li>Fn prints these arguments and simply returns when all of them become max.</li>
+</ul>
+
+<pre><code>
+void Fn(int max, int *a, int &b, int c) {
+
+  // base case i.e. increment a,b,c till max
+  if(*a <= max || b <= max || c <= max) {
+  
+    cout << *a << " " << b << " " << c << " before recursive call" << endl;
+    
+    // incrementing all three parameters
+    ++(*a); ++b; ++c;
+    
+    // recursive function call
+    Fn(max, a, b, c);
+    
+    cout << *a << " " << b << " " << c << " after recursive call" << endl;
+  }
+}
+</code></pre>
+
+<!-------------------------------------------------------------------------------->
+<hr>
+<h3>Using C++ STL set</h3>
+<p>Sets are useful for collecting unique items and keep them in sorted order for effiecient lookup. Following program takes mentioned number of names from standard input and output unique names in sorted order to the standard output.</p>
+<pre><code>
+#include &lt;iostream&gt;
+#include &lt;set&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main(void) {
+  size_t namesCount;
+  string name;
+  set<string> names;
+  set<string>::iterator iter;
+  cin >> namesCount;
+  while(namesCount--) {
+    cin >> name;
+    names.insert(name);
+  }
+  for(iter = names.begin(); iter != names.end(); ++iter) {
+    cout << *iter << endl;
+  }
+  return 0;
+}
+</code></pre>
+
+<!-------------------------------------------------------------------------------->
+<hr>
+
+
+</div><!-- /.blog-post -->

@@ -1,0 +1,128 @@
+<div class="blog-post">
+<h2 class="blog-post-title">Perl basics snippets <small>quick learning</small></h2>
+<p class="blog-post-meta">Sept 25, 2015 by <a href="../resume/">Vikas Kaushik</a></p>
+
+<!----------------------------------------------------------  -->
+<h4>Basics</h4>
+<pre><code>
+<b>
+#!/usr/bin/perl -w</b>
+# Scalar variables are appended with '$' sign everywhere, e.g. $var, $name.
+# Everything ambiguous is "undef"/undefined in perl.
+# In perl methods/functions/procedures are referred as "subroutines/routines".
+
+# using "defined" operator, it's true if $var is undefined till now.
+# There is no boolean type in perl. The empty string, the empty array, the number 0 and undef - all evaluate to false and everything esle is true.
+# logical operators are &&, ||, !. Also keywords and, or, not work fine.
+<b>
+if(!defined($var)) {
+    print "var is undefined. \n";
+}
+elsif(not 1 and 0) {
+    print "notice elsif keyword";
+}
+else {
+    print "dummy print";
+}
+</b>
+# Mulitple variable initialization
+<b>
+($count, $name, $var) = (5, "Dennis", 45.4);</b>
+<b>print "count: $count, name: $name \n";</b>  # print string interpolation
+<b>print "Amount:\$50/- and mail: mail\@server.com \n";</b> # escaping $ and @
+
+# while and for loops are syntactically same as in C/C++/Java.
+# "next" is equivalent to "continue" in C and "last" is equivalent to "break".
+</pre></code>
+
+<!----------------------------------------------------------  -->
+<h4>Perl arrays</h4>
+<pre><code>
+<b>#!/usr/bin/perl -w</b>
+# Arrays are represented using '@' sign, like '$' for scalars. Arrays grow and shrink automatically like list/collections.
+# If you try to access an outof range value,it'll get you undef and array will be grown to that size.
+# You can make multidimesional array, but they cannot be copied or passed as they will be flattened to one dimensional array.
+# Arrays are designed with one-dimensional mentality. You can create an array of references to array i.e. 2D array. I'll show you how to create a reference.
+<b>@arr = (1,2,"hello", 34.5);</b>  # array containing heterogenieous data types
+<b>$arr[0] = $arr[0] + 5;</b>   # observe while accessing array element is a scalar.
+<b>$arr_length = scalar(@arr);</b> # typeconversion to scalar.
+<b>@empty_arr = ();</b>
+<b>
+print "first element is ", $arr[0], "\n";
+print "index of last element of array ", $#arr, "\n"; # special $#arr
+print "@arr \n"; # printing complete array
+</b>
+# foreach to loop through array
+# $var is a reference to the element in @arr here. So changes to $var will alter element in @arr.
+<b>
+foreach $var (@arr) {
+    print "$var \n";
+}
+</b>
+# sorting array
+<b>
+@name_list = ("Tom", "Dik", "Harry");
+@mark_list = (95,72,80);
+</b>
+# sort returns a copy of sorted array, original one is intact.
+<b>
+@sorted_names = sort @name_list;
+print "@sorted_names \n";
+print @name_list, "\n"; # notice the difference of print withoug using inverted commas
+</b>
+# sorting array customized
+<b>@sorted_list = (sort {$a <=> $b} @mark_list);</b> # numerical ascending sort
+<b>@sorted_list = (sort {$b <=> $a} @mark_list);</b> # numerical descending sort
+<b>@sorted_list = (sort {$b cmp $a} @name_list);</b> # alphabetical descending sort
+<b>@sorted_list = (sort {lc($b) cmp lc($a)} @name_list);</b> # case in-sensitive alphabetical descending sort
+
+# {...} is comparator function here
+# $a and $b are special elements
+# cmp is builtin string comparator
+# <=> is builtin numeric comparator
+
+# Useful array functions. Use these to make array behave like stack or queue.
+<b>$var = shift(@arr);</b>  # removes and returns front element of array
+<b>unshift(@arr, $var);</b> # inserts element in front of array
+<b>$var = pop(@arr);</b>    # removes and returns last element of array
+<b>push(@arr, $var);</b>    # inserts element at the end of array
+
+<b>splice(@arr, 2, 1, @name_list);</b> # splice(array, index, count, array2) -- replaces count number of array elements from index, with array2 elements.
+<b>splice(@arr, 1, 1);</b> # deletes the element at index 1
+<b>print "@arr \n";</b>
+</pre></code>
+
+<!----------------------------------------------------------  -->
+<h4>Perl Associative Arrays/Hash Arrays</h4>
+<pre><code>
+<b>#!/usr/bin/perl -w</b>
+# Associative Aarrays
+# Hash Arrays are represented using '%' sign, like '$' for scalars. Hash Arrays grow and shrink automatically like list/collections.
+# Hash Array is builtin key-value pair collection and is optimized to search for key.
+# Initializing hash array
+<b>
+%dict = ("key1" => "value1",
+         "key2" => "value2",
+         "key3" => 34.3,
+    );
+</b>
+<b>$dict{"Mario"} = "Old game";</b> # $hashArray{key} = value
+<b>$dict{"Linux"} = "Operating System";
+$dict{1} = 90;
+$var = $dict{Linux};
+</b>
+<b>@arr = %dict;</b> # conversion of hash array to simple array.
+<b>print "@arr \n";</b>
+
+<b>@keys = (keys %dict);</b> # getting just keys out of array
+<b>print "@keys \n";</b>
+<b>
+foreach $key (keys %dict) {
+    print "$key - $dict{$key} \n";
+}
+</b>
+# Hash arrays can be used to encapsulate several things together like structure in C/C++
+
+</pre></code>
+
+</div><!-- /.blog-post -->

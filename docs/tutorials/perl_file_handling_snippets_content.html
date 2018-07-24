@@ -1,0 +1,57 @@
+<div class="blog-post">
+<h2 class="blog-post-title">Perl File handling <small>quick learning</small></h2>
+<p class="blog-post-meta">Sept 25, 2015 by <a href="../resume/">Vikas Kaushik</a></p>
+
+<!----------------------------------------------------------  -->
+<pre><code>
+<b>#!/usr/bin/perl -w </b>
+# @ARGV is special array which contains command line arguments
+# You can run file.pl with arguments e.g. $ file.pl -argument1 argument2
+# %ENV is special associative array that contains environment variables. Makes more sense in Linux.
+
+# File handles are used to access files. These are barewords, conventionally in UPPERCASE.
+# File handles are in global namespace, so you can not allocate them locally like other variables.
+# File handles can be passed from one routine to another as simple strings.
+
+# opening a file in three modes - read, write and append.
+<b>open(F1, "file.txt");</b> # open file.txt in read mode and attach it to F1 file andle
+<b>open(F1, ">file.txt");</b> # open file.txt in write mode and attach it to F1 file andle
+<b>open(F1, ">>file.txt");</b> # open file.txt in append mode and attach it to F1 file andle
+
+# close a file handle when it's usage is done.
+<b>close(F1);</b>
+
+# open can also be used to send data from file handle to system command or from system command to a file handle.
+# Be careful while using open() that way, it's a security concern to be able to execute system commands.
+# open(F2, "ls -l |"); # notice the pipe (linux command)
+# open(F3, "| mail $addr"); # send a mail to $addr with the file handle F3 content
+
+# STDIN, STDOUT, STDERR are standard file handles, available to all perl codes, automatically opened before program runs.
+# angle brackets "<>" operator is used to get data out of file handle.
+
+<b>$line = &lt;STDIN&gt;;</b> # reading a line from standard input including new line character.
+<b>chop($line);</b> # removes last character of a line.
+<b>chomp($line);</b> # removes last character of line only if it's a new line character.
+<b>print "$line \n";</b>
+
+# There is a special scalar $/ which is set to "\n" bydefault. It defines how "<>" operator gonna read file handle.
+<b>$/ = undef;</b>
+# $all = &lt;FILE&gt;; # reads the whole file in $all as one string.
+</pre></code>
+
+<hr>
+<p>Reading a file to screen.</p>
+<pre><code><b>
+#!/usr/bin/perl -w
+
+print "Welcome! Please enter file name you want to read.";
+$filename = &lt;STDIN&gt;;
+
+open(FILE, $filename) || die "Could not open file: $filename \n";
+
+while($line = &lt;FILE&gt;) {
+    print $line;
+}</b>
+</pre></code>
+
+</div><!-- /.blog-post -->

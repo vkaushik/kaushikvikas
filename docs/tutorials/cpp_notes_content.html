@@ -1,0 +1,55 @@
+<div class="blog-post">
+<h3 class="blog-post-title">Important C++ Notes <small>quick learning</small></h3>
+<p class="blog-post-meta">July 15, 2015 by <a href="../resume/">Vikas Kaushik</a>&nbsp;&nbsp;<small>Source:<a href="http://www.geeksforgeeks.org/">geeksforgeeks</a></small></p>
+<hr>
+<p>A base class function can be accessed with scope resolution operator even if the function is virtual.</p>
+<hr>
+<p>Static functions are class specific and may not be called on objects. Virtual functions are called according to the pointed or referred object.</p>
+<hr>
+<p>There is nothing like Virtual Constructor. Making constructors virtual doesnt make sense as constructor is responsible for creating an object and it can not be delegated to any other object by virtual keyword means</p>
+<hr>
+<p>In C++, if we do not write our own, then compiler automatically creates a default constructor, a copy constructor and a assignment operator for every class.</p>
+<hr>
+<p>In C++, a Copy Constructor may be called in following cases:
+	<ol>
+		<li>When an object of the class is returned by value.</li>
+		<li>When an object of the class is passed (to a function) by value as an argument.</li>
+		<li>When an object is constructed based on another object of the same class.</li>
+		<li>When compiler generates a temporary object.</li>
+	</ol>
+</p>
+<hr>
+<p>When is user defined copy constructor needed?<br>
+If we dont define our own copy constructor, the C++ compiler creates a default copy constructor for each class which does a member wise copy between objects. The compiler created copy constructor works fine in general. We need to define our own copy constructor only if an object has pointers or any run time allocation of resource like file handle, a network connection..etc.</p>
+<hr>
+<p>If we write any constructor, then compiler doesnt create the default constructor. It is not true other way, i.e., if we write a default or parameterized constructor, then compiler creates a copy constructor.</p>
+<p>Objects must be passed by reference in copy constructors. Compiler checks for this and produces compiler error if not passed by reference. The reason is simple, if we dont pass by reference, then argument p1 will be copied to p. So there will be a copy constructor call to call the copy constructor, which is not possible.</p>
+<hr>
+<p>Dont write a copy constructor if shallow copies are ok: In C++, If an object has no pointers or any run time allocation of resource like file handle, a network connection..etc, a shallow copy is probably sufficient. Therefore the default copy constructor, default assignment operator, and default destructor are ok and you dont need to write your own.</p>
+<hr>
+<p>What is the use of private destructor?<br>
+Whenever we want to control destruction of objects of a class, we make the destructor private. For dynamically created objects, it may happen that you pass a pointer to the object to a function and the function deletes the object. If the object is referred after the function call, the reference will become dangling.</p>
+<hr>
+<p>Virtual constructors dont make sense, it is meaningless to the C++ compiler to create an object polymorphically. Constructors can be private, for example, we make copy constructors private when we dont want to create copyable objects. The reason for not making copyable object could be to avoid shallow copy.</p>
+<hr>
+<p>If a class has a constructor which can be called with a single argument, then this constructor becomes conversion constructor because such a constructor allows automatic conversion to the class being constructed. A conversion constructor can be called anywhere when the type of single argument is assigned to the object.</p>
+<hr>
+<p>When we create our own copy constructor, we pass an object by reference and we generally pass it as a const reference. </p>
+<hr>
+<p>One reason for passing const reference is, we should use const in C++ wherever possible so that objects are not accidentally modified. This is one good reason for passing reference as const, but there is more to it. For example, predict the output of following C++ program. Assume that copy elision is not done by compiler.</p>
+<hr>
+<p>A copy constructor always takes one parameter, reference to the type for which it belongs, theremaybe other parameters but they must have default values.</p>
+<hr>
+<p>Design Patterns<br>
+<ol>
+<li>Design Principles</li>
+<li>Encapsulate what varies</li>
+<li>Favor composition over inheritance</li>
+<li>Program to interfaces, not to implementations</li>
+<li>Strive for loosely coupled design between objects that interact</li>
+<li>Depend upon abstractions. Do not depend upon concrete classes</li>
+<li>Classes should be open for extension but closed for modification.</li>
+</ol>
+</p>
+
+</div><!-- /.blog-post -->
