@@ -1,0 +1,27 @@
+<div class="blog-post">
+<h2 class="blog-post-title">Perl Scripting Start</h2>
+<p class="blog-post-meta">Sept 25, 2015 by <a href="../resume/">Vikas Kaushik</a></p>
+
+<p>If you know basic programming, Perl is very easy and quick to learn and you'll start writing atomation scripts in just 30 minutes. Please have a quick look on the code snippets and start writing your own scripts. I've only provided very brief and must have theoritical inofmration. Explanation of code you'll be able to understand yourself.</p>
+
+<!-------------------------------------------------------------------------------->
+<hr>
+<ul>
+  <li>Create a "file.pl" and write perl code in it. To make it executable add executable permission to "file.pl".
+    <pre><code><b>user@ubuntu:~$</b> chmod u+x file.pl</code></pre>
+    </li>
+  <li>Following perl script prints "hello world"</li>
+<pre><code>
+#!/usr/bin/perl -w
+
+print "hello world !\n"; # This is a comment.
+
+# First line is called as "shebang" which is the path to perl command.
+# '-w' is flag to perl command to enable warnings.
+</pre></code>
+  <li>Run it
+    <pre><code><b>user@ubuntu:~$</b> ./file.pl</code></pre></li>
+  <li>Perl interpreter makes a first pass through the perl script and looks for obvious syntax errors. Everything gets compiled silently in perl if it's syntactically correct.</li>
+  <li>Perl is quick and handy but is not suggested for large projects. You'll realize it's power when dealing with regular expressions and file processing.</li>
+</ul>
+</div><!-- /.blog-post -->
